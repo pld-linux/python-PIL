@@ -18,7 +18,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	sed
 BuildRequires:	tk-devel
 BuildRequires:	zlib-devel
-%requires_eq	python
+%pyrequires_eq	python
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,7 +36,7 @@ plików, wydajn± reprezentacjê wewnêtrzn± i du¿e mo¿liwo¶ci obróbki
 Summary:	Python's own image processing library header files
 Summary(pl):	Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie
 Group:		Development/Languages/Python
-%requires_eq	python
+%pyrequires_eq	python
 Requires:	%{name} = %{version}
 
 %description devel
