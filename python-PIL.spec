@@ -2,7 +2,7 @@
 Summary:	Python's own image processing library 
 Name:		python-%{pp_subname}
 Version:	1.0
-Release:	1
+Release: 2
 Copyright:	distributable
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
@@ -14,7 +14,7 @@ BuildRequires:	python-devel >= 1.5
 BuildRequires:	sed
 BuildRequires:	zlib-devel >= 1.0.4
 BuildRequires:	libjpeg-devel >= 6a
-BuildRequires:	libpng-devel >= 1.0.1
+BuildRequires:	libpng >= 1.0.8
 
 %description
 The Python Imaging Library (PIL) adds image processing capabilities 
