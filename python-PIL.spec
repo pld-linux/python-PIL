@@ -1,3 +1,4 @@
+%include	/usr/lib/rpm/macros.python
 
 %define module Imaging
 
@@ -5,7 +6,7 @@ Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.2
-Release:	3
+Release:	4
 License:	distributable
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -14,14 +15,12 @@ Source0:	http://www.pythonware.com/downloads/%{module}-%{version}.tar.gz
 Patch0:		Imaging-libver.patch
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng >= 1.0.8
-BuildRequires:	python-devel >= 2.1
+BuildRequires:	python-devel >= 2.2
 BuildRequires:	sed
 BuildRequires:	tk-devel
 BuildRequires:	zlib-devel
 %requires_eq	python
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%include /usr/lib/rpm/macros.python
 
 %description
 The Python Imaging Library (PIL) adds image processing capabilities to
