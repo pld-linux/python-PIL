@@ -1,12 +1,15 @@
-%define pp_subname Imaging
+
+%define module Imaging
+%define pver 1.5
+
 Summary:	Python's own image processing library 
-Name:		python-%{pp_subname}
+Name:		python-%{module}
 Version:	1.0
 Release: 2
 Copyright:	distributable
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Source0:	http://www.pythonware.com/downloads/%{pp_subname}-%{version}.tar.gz
+Source0:	http://www.pythonware.com/downloads/%{module}-%{version}.tar.gz
 #Icon:		linux-python-small.gif 
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	python >= 1.5
@@ -25,7 +28,7 @@ internal representation, and powerful image processing capabilities.
 %description -l pl
 
 %prep
-%setup -q -n %{pp_subname}-%{version}
+%setup -q -n %{module}-%{version}
 
 %build
 cd libImaging
@@ -49,16 +52,16 @@ for f in os.listdir("."):
 END
 
 %install
-install -d $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
-install -d $RPM_BUILD_ROOT/%{_includedir}/python1.5
-echo %{pp_subname} > $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}.pth
-install -m 755 *.so $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
-install PIL/* $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
-install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/python1.5
+install -d $RPM_BUILD_ROOT%{_libdir}/python%{pver}/site-packages/%{module}
+install -d $RPM_BUILD_ROOT/%{_includedir}/python%{pver}
+echo %{module} > $RPM_BUILD_ROOT%{_libdir}/python%{pver}/site-packages/%{module}.pth
+install -m 755 *.so $RPM_BUILD_ROOT%{_libdir}/python%{pver}/site-packages/%{module}
+install PIL/* $RPM_BUILD_ROOT%{_libdir}/python%{pver}/site-packages/%{module}
+install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/python%{pver}
 
 (
-  cd $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/
-  ln -sf %{pp_subname} PIL
+  cd $RPM_BUILD_ROOT%{_libdir}/python%{pver}/site-packages/
+  ln -sf %{module} PIL
 )
 
 gzip -9nf  README FORMATS CHANGES 
@@ -68,7 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %doc {README,FORMATS,CHANGES}.gz
-%attr(644,root,root) %{_libdir}/python1.5/site-packages/%{pp_subname}/*
-%{_libdir}/python1.5/site-packages/PIL
-%attr(644,root,root) %{_libdir}/python1.5/site-packages/%{pp_subname}.pth
-%attr(644,root,root) %{_includedir}/python1.5/*.h
+%attr(644,root,root) %{_libdir}/python%{pver}/site-packages/%{module}/*
+%{_libdir}/python%{pver}/site-packages/PIL
+%attr(644,root,root) %{_libdir}/python%{pver}/site-packages/%{module}.pth
+%attr(644,root,root) %{_includedir}/python%{pver}/*.h
