@@ -6,7 +6,7 @@ Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.4
-Release:	4
+Release:	5
 License:	distributable
 Group:		Libraries/Python
 Source0:	http://effbot.org/downloads/%{module}-%{version}.tar.gz
@@ -20,7 +20,7 @@ BuildRequires:	python
 BuildRequires:	python-devel >= 2.2.1
 BuildRequires:	rpm-pythonprov
 BuildRequires:	tk-devel
-BuildRequires:	tkinter
+BuildRequires:	python-tkinter
 BuildRequires:	zlib-devel
 %pyrequires_eq	python
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
