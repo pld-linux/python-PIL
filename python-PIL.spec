@@ -8,7 +8,7 @@ Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
 Source0:	http://www.pythonware.com/downloads/%{pp_subname}-%{version}.tar.gz
 #Icon:		linux-python-small.gif 
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	python >= 1.5
 BuildRequires:	python-devel >= 1.5
 BuildRequires:	sed
@@ -47,7 +47,6 @@ for f in os.listdir("."):
 		print "Byte compiling "+f+"..."
 		py_compile.compile(f)
 END
-
 
 %install
 install -d $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
