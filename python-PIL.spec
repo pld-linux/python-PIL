@@ -70,7 +70,7 @@ ln -sf %{module} $RPM_BUILD_ROOT%{py_sitedir}/PIL
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 
-gzip -9nf  README FORMATS CHANGES 
+gzip -9nf  README FORMATS CHANGES
 
 %clean
 rm -rf $RPM_BUILD_ROOT
