@@ -1,16 +1,20 @@
 %define pp_subname Imaging
-Summary:       Python's own image processing library 
-Name:          python-%{pp_subname}
-Version:       1.0
-Release:       1
-Copyright:     distributable
-Group:         Development/Languages/Python
-Group(pl):     Programowanie/Jêzyki/Python
-Source0:       %{pp_subname}-%{version}.tar.gz
-Icon:          linux-python-small.gif 
-BuildRoot:	   /tmp/%{name}-%{version}-root
-Requires:      python >= 1.5
-BuildRequires: python-devel >= 1.5, sed, zlib-devel >= 1.0.4 , libjpeg-devel >= 6a, libpng-devel >= 1.0.1
+Summary:	Python's own image processing library 
+Name:		python-%{pp_subname}
+Version:	1.0
+Release:	1
+Copyright:	distributable
+Group:		Development/Languages/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Source0:	http://www.pythonware.com/downloads/%{pp_subname}-%{version}.tar.gz
+#Icon:		linux-python-small.gif 
+BuildRoot:	/tmp/%{name}-%{version}-root
+Requires:	python >= 1.5
+BuildRequires:	python-devel >= 1.5
+BuildRequires:	sed
+BuildRequires:	zlib-devel >= 1.0.4
+BuildRequires:	libjpeg-devel >= 6a
+BuildRequires:	libpng-devel >= 1.0.1
 
 %description
 The Python Imaging Library (PIL) adds image processing capabilities 
@@ -18,8 +22,10 @@ to your Python interpreter.
 This library provides extensive file format support, an efficient
 internal representation, and powerful image processing capabilities.
 
+%description -l pl
+
 %prep
-%setup -n %{pp_subname}-%{version}
+%setup -q -n %{pp_subname}-%{version}
 
 %build
 cd libImaging
@@ -47,10 +53,10 @@ END
 install -d -m 755 $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
 echo %{pp_subname} > $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}.pth
 install -m 755 *.so $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
-install -m 644 PIL/* $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
+install  PIL/* $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
 install -d -m 755 $RPM_BUILD_ROOT/%{_includedir}/python1.5
-install -m 644 libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/python1.5
-gzip -9nf README FORMATS CHANGES 
+install  libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/python1.5
+gzip -9nf  README FORMATS CHANGES 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
