@@ -1,11 +1,13 @@
 
+%bcond_without	tk	# build without tkinter support
+
 %define		module	Imaging
 
 Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.5a3
-Release:	2
+Release:	3
 License:	distributable
 Group:		Libraries/Python
 Source0:	http://effbot.org/downloads/%{module}-%{version}.tar.gz
@@ -19,8 +21,8 @@ BuildRequires:	libpng >= 1.0.8
 BuildRequires:	python
 BuildRequires:	python-devel >= 2.2.1
 BuildRequires:	rpm-pythonprov
-BuildRequires:	tk-devel
-BuildRequires:	python-tkinter
+%{?with_tk:BuildRequires:	tk-devel}
+%{?with_tk:BuildRequires:	python-tkinter}
 BuildRequires:	zlib-devel
 %pyrequires_eq	python
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -90,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(755,root,root) %{py_sitedir}/%{module}/_imaging.so
 %attr(755,root,root) %{py_sitedir}/%{module}/_imagingft.so
-%attr(755,root,root) %{py_sitedir}/%{module}/_imagingtk.so
+%{?with_tk:%attr(755,root,root) %{py_sitedir}/%{module}/_imagingtk.so}
 %{py_sitedir}/%{module}/*.py?
 
 %files devel
