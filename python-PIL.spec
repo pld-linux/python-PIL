@@ -89,8 +89,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/PIL
 %{py_sitedir}/%{module}.pth
 
-%attr(755,root,root) %{py_sitedir}/%{module}/_imaging.so  
-%attr(755,root,root) %{py_sitedir}/%{module}/_imagingft.so  
+%attr(755,root,root) %{py_sitedir}/%{module}/_imaging.so
+%attr(755,root,root) %{py_sitedir}/%{module}/_imagingft.so
 %attr(755,root,root) %{py_sitedir}/%{module}/_imagingtk.so
 %{py_sitedir}/%{module}/*.py?
 
