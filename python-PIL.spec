@@ -13,6 +13,7 @@ Source0:	http://effbot.org/downloads/%{module}-%{version}.tar.gz
 # Source0-md5:	d2c03c25a9a0128832137dd536da88da
 Patch0:		Imaging-libver.patch
 Patch1:		%{name}-EXTRA_ARGS.patch
+Patch2:		%{name}-freetype.patch
 URL:		http://www.pythonware.com/products/pil/index.htm
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng >= 1.0.8
@@ -53,6 +54,7 @@ Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie.
 %setup -q -n %{module}-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 cd libImaging
