@@ -6,15 +6,18 @@ Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.4
-Release:	1
+Release:	2
 License:	distributable
 Group:		Libraries/Python
 Source0:	http://effbot.org/downloads/%{module}-%{version}.tar.gz
 # Source0-md5:	d2c03c25a9a0128832137dd536da88da
 Patch0:		Imaging-libver.patch
+Patch1:		%{name}-EXTRA_ARGS.patch
+
 URL:		http://www.pythonware.com/products/pil/index.htm
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng >= 1.0.8
+BuildRequires:	python
 BuildRequires:	python-devel >= 2.2.1
 BuildRequires:	rpm-pythonprov
 BuildRequires:	tk-devel
@@ -49,6 +52,7 @@ Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie.
 %prep
 %setup -q -n %{module}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 cd libImaging
@@ -56,15 +60,16 @@ cd libImaging
 %{__make} \
 	"OPT=%{rpmcflags}"
 cd ..
-%{__make} -f Makefile.pre.in boot
-%{__make}
+#%%{__make} -f Makefile.pre.in boot
+#%%{__make}
+python setup.py build_ext -i
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{py_sitedir}/%{module},%{py_incdir}}
 
 echo %{module} > $RPM_BUILD_ROOT%{py_sitedir}/%{module}.pth
-install *.so $RPM_BUILD_ROOT%{py_sitedir}/%{module}
+# install *.so $RPM_BUILD_ROOT%{py_sitedir}/%{module}
 install PIL/* $RPM_BUILD_ROOT%{py_sitedir}/%{module}
 install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT%{py_incdir}
 
