@@ -50,19 +50,19 @@ END
 
 
 %install
-install -d -m 755 $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
+install -d $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
+install -d $RPM_BUILD_ROOT/%{_includedir}/python1.5
 echo %{pp_subname} > $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}.pth
 install -m 755 *.so $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
-install  PIL/* $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
-install -d -m 755 $RPM_BUILD_ROOT/%{_includedir}/python1.5
-install  libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/python1.5
-gzip -9nf  README FORMATS CHANGES 
+install PIL/* $RPM_BUILD_ROOT%{_libdir}/python1.5/site-packages/%{pp_subname}
+install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/python1.5
+gzip -9nf  README FORMATS CHANGES 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %doc {README,FORMATS,CHANGES}.gz
-%{_libdir}/python1.5/site-packages/%{pp_subname}
-%{_libdir}/python1.5/site-packages/%{pp_subname}.pth
-%{_includedir}/python1.5/*
+%attr(644,root,root) %{_libdir}/python1.5/site-packages/%{pp_subname}/*
+%attr(644,root,root) %{_libdir}/python1.5/site-packages/%{pp_subname}.pth
+%attr(644,root,root) %{_includedir}/python1.5/*.h
