@@ -9,7 +9,7 @@ Summary:	Python's own image processing library
 Name:		python-%{module}
 Version:	1.1.2
 Release:	2
-License:	Distributable
+License:	distributable
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
