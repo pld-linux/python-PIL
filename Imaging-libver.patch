@@ -1,0 +1,12 @@
+diff -Nur Imaging-1.1.1.orig/Setup.in Imaging-1.1.1/Setup.in
+--- Imaging-1.1.1.orig/Setup.in	Sun Aug 15 13:42:05 1999
++++ Imaging-1.1.1/Setup.in	Thu Mar 22 20:11:53 2001
+@@ -42,7 +42,7 @@
+ 
+ _imagingtk  _imagingtk.c \
+ 	-IlibImaging Tk/tkImaging.c \
+-	-I/usr/local/include -L/usr/local/lib -ltcl8.0 -ltk8.0 \
++	-I/usr/local/include -L/usr/local/lib -ltcl -ltk \
+         -L/usr/X11R6/lib -lX11 
+ 
+ # --------------------------------------------------------------------
