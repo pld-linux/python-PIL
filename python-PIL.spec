@@ -8,7 +8,7 @@
 Summary:	Python's own image processing library 
 Name:		python-%{module}
 Version:	1.1.2
-Release:	1
+Release:	2
 Copyright:	distributable
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -51,7 +51,7 @@ N/A
 
 %build
 cd libImaging
-%configure
+%configure2_13
 %{__make} "OPT=%{rpmcflags}"
 cd ..
 %{__make} -f Makefile.pre.in boot
