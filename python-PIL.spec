@@ -5,16 +5,17 @@
 
 Summary:	Python's own image processing library 
 Name:		python-%{module}
-Version:	1.0
-Release: 2
+Version:	1.1.1
+Release: 1
 Copyright:	distributable
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
 Source0:	http://www.pythonware.com/downloads/%{module}-%{version}.tar.gz
-#Icon:		linux-python-small.gif 
+Patch0:	Imaging-libver.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	python >= 1.5
 BuildRequires:	python-devel >= 1.5
+BuildRequires:	tk-devel
 BuildRequires:	sed
 BuildRequires:	zlib-devel >= 1.0.4
 BuildRequires:	libjpeg-devel >= 6a
@@ -30,10 +31,11 @@ internal representation, and powerful image processing capabilities.
 
 %prep
 %setup -q -n %{module}-%{version}
+%patch0 -p1
 
 %build
 cd libImaging
-./configure
+%configure
 %{__make} "OPT=$RPM_OPT_FLAGS"
 cd ..
 %{__make} -f Makefile.pre.in boot
