@@ -9,28 +9,25 @@ Summary:	Python's own image processing library
 Name:		python-%{module}
 Version:	1.1.2
 Release:	2
-Copyright:	distributable
+License:	Distributable
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
 Source0:	http://www.pythonware.com/downloads/%{module}-%{version}.tar.gz
 Patch0:		Imaging-libver.patch
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Requires:	python >= 1.5
-BuildRequires:	python-devel >= 1.5
-BuildRequires:	tk-devel
-BuildRequires:	sed
-BuildRequires:	zlib-devel >= 1.0.4
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng >= 1.0.8
+BuildRequires:	python-devel >= 2.1
+BuildRequires:	sed
+BuildRequires:	tk-devel
+Requires:	python >= 2.1
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 The Python Imaging Library (PIL) adds image processing capabilities to
 your Python interpreter. This library provides extensive file format
 support, an efficient internal representation, and powerful image
 processing capabilities.
-
-%description -l pl
 
 %package devel
 Summary:	Python's own image processing library header files
@@ -40,10 +37,7 @@ Group(pl):	Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 
 %description devel
-N/A
-
-%description devel -l pl
-N/A
+Python's own image processing library header files.
 
 %prep
 %setup -q -n %{module}-%{version}
@@ -64,10 +58,11 @@ cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}
-install -d $RPM_BUILD_ROOT/%{_includedir}/%{python_dir}
+install -d $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module} \
+	$RPM_BUILD_ROOT/%{_includedir}/%{python_dir}
+
 echo %{module} > $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}.pth
-install -m 755 *.so $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}
+install *.so $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}
 install PIL/* $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}
 install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/%{python_dir}
 
@@ -83,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc {README,FORMATS,CHANGES}.gz
+%doc *.gz
 %dir %{python_sitepkgsdir}/%{module}
 %{python_sitepkgsdir}/PIL
 %{python_sitepkgsdir}/%{module}.pth
