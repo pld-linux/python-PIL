@@ -13,7 +13,6 @@ Source0:	http://effbot.org/downloads/%{module}-%{version}.tar.gz
 # Source0-md5:	d2c03c25a9a0128832137dd536da88da
 Patch0:		Imaging-libver.patch
 Patch1:		%{name}-EXTRA_ARGS.patch
-
 URL:		http://www.pythonware.com/products/pil/index.htm
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng >= 1.0.8
@@ -58,7 +57,7 @@ Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie.
 cd libImaging
 %configure2_13
 %{__make} \
-	"OPT=%{rpmcflags}"
+	OPT="%{rpmcflags} -fPIC"
 cd ..
 #%%{__make} -f Makefile.pre.in boot
 #%%{__make}
