@@ -64,12 +64,12 @@ cd ..
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{py_sitedir}/%{module} \
-	$RPM_BUILD_ROOT/%{_includedir}/python%{py_ver}
+	$RPM_BUILD_ROOT/%{py_incdir}
 
 echo %{module} > $RPM_BUILD_ROOT%{py_sitedir}/%{module}.pth
 install *.so $RPM_BUILD_ROOT%{py_sitedir}/%{module}
 install PIL/* $RPM_BUILD_ROOT%{py_sitedir}/%{module}
-install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/python%{py_ver}
+install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{py_incdir}
 
 ln -sf %{module} $RPM_BUILD_ROOT%{py_sitedir}/PIL
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
@@ -92,4 +92,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/python%{py_ver}/*.h
+%{py_incdir}/*.h
