@@ -9,11 +9,6 @@ Version:	1.1.2
 Release:	4
 License:	distributable
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 Source0:	http://www.pythonware.com/downloads/%{module}-%{version}.tar.gz
 Patch0:		Imaging-libver.patch
 BuildRequires:	libjpeg-devel >= 6a
@@ -40,11 +35,6 @@ plików, wydajn± reprezentacjê wewnêtrzn± i du¿e mo¿liwo¶ci obróbki
 Summary:	Python's own image processing library header files
 Summary(pl):	Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 %requires_eq	python
 Requires:	%{name} = %{version}
 
