@@ -6,12 +6,13 @@
 Summary:	Python's own image processing library 
 Name:		python-%{module}
 Version:	1.1.1
-Release: 1
+Release:	1
 Copyright:	distributable
 Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
 Source0:	http://www.pythonware.com/downloads/%{module}-%{version}.tar.gz
-Patch0:	Imaging-libver.patch
+Patch0:		Imaging-libver.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	python >= 1.5
 BuildRequires:	python-devel >= 1.5
@@ -22,10 +23,10 @@ BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng >= 1.0.8
 
 %description
-The Python Imaging Library (PIL) adds image processing capabilities 
-to your Python interpreter.
-This library provides extensive file format support, an efficient
-internal representation, and powerful image processing capabilities.
+The Python Imaging Library (PIL) adds image processing capabilities to
+your Python interpreter. This library provides extensive file format
+support, an efficient internal representation, and powerful image
+processing capabilities.
 
 %description -l pl
 
@@ -36,7 +37,7 @@ internal representation, and powerful image processing capabilities.
 %build
 cd libImaging
 %configure
-%{__make} "OPT=$RPM_OPT_FLAGS"
+%{__make} "OPT=%{rpmcflags}"
 cd ..
 %{__make} -f Makefile.pre.in boot
 %{__make}
@@ -55,6 +56,7 @@ for f in os.listdir("."):
 END
 
 %install
+rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}
 install -d $RPM_BUILD_ROOT/%{_includedir}/%{python_dir}
 echo %{module} > $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}.pth
@@ -73,6 +75,7 @@ gzip -9nf  README FORMATS CHANGES
 rm -rf $RPM_BUILD_ROOT
 
 %files
+%defattr(644,root,root,755)
 %doc {README,FORMATS,CHANGES}.gz
 %attr(644,root,root) %{python_sitepkgsdir}/%{module}/*
 %{python_sitepkgsdir}/PIL
