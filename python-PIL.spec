@@ -1,6 +1,7 @@
 
 %define module Imaging
-%define pver 1.5
+%define python_sitepkgsdir %(echo `python -c "import sys; print (sys.prefix + '/lib/python' + sys.version[:3] + '/site-packages/')"`)
+%define python_dir %(echo `python -c "import sys; print ('python' + sys.version[:3])"`)
 
 Summary:	Python's own image processing library 
 Name:		python-%{module}
@@ -52,15 +53,15 @@ for f in os.listdir("."):
 END
 
 %install
-install -d $RPM_BUILD_ROOT%{_libdir}/python%{pver}/site-packages/%{module}
-install -d $RPM_BUILD_ROOT/%{_includedir}/python%{pver}
-echo %{module} > $RPM_BUILD_ROOT%{_libdir}/python%{pver}/site-packages/%{module}.pth
-install -m 755 *.so $RPM_BUILD_ROOT%{_libdir}/python%{pver}/site-packages/%{module}
-install PIL/* $RPM_BUILD_ROOT%{_libdir}/python%{pver}/site-packages/%{module}
-install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/python%{pver}
+install -d $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}
+install -d $RPM_BUILD_ROOT/%{_includedir}/%{python_dir}
+echo %{module} > $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}.pth
+install -m 755 *.so $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}
+install PIL/* $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}
+install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/%{python_dir}
 
 (
-  cd $RPM_BUILD_ROOT%{_libdir}/python%{pver}/site-packages/
+  cd $RPM_BUILD_ROOT%{python_sitepkgsdir}/
   ln -sf %{module} PIL
 )
 
@@ -71,7 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %doc {README,FORMATS,CHANGES}.gz
-%attr(644,root,root) %{_libdir}/python%{pver}/site-packages/%{module}/*
-%{_libdir}/python%{pver}/site-packages/PIL
-%attr(644,root,root) %{_libdir}/python%{pver}/site-packages/%{module}.pth
-%attr(644,root,root) %{_includedir}/python%{pver}/*.h
+%attr(644,root,root) %{python_sitepkgsdir}/%{module}/*
+%{python_sitepkgsdir}/PIL
+%attr(644,root,root) %{python_sitepkgsdir}/%{module}.pth
+%attr(644,root,root) %{_includedir}/%{python_dir}/*.h
