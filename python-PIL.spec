@@ -1,6 +1,7 @@
-
+#
+# Conditional build:
 %bcond_without	tk	# build without tkinter support
-
+#
 %define		module	Imaging
 
 Summary:	Python's own image processing library
@@ -17,14 +18,14 @@ Patch1:		%{name}-EXTRA_ARGS.patch
 Patch2:		%{name}-freetype.patch
 URL:		http://www.pythonware.com/products/pil/index.htm
 BuildRequires:	libjpeg-devel >= 6a
-BuildRequires:	libpng >= 1.0.8
+BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	python
 BuildRequires:	python-devel >= 2.2.1
 BuildRequires:	rpm-pythonprov
 %{?with_tk:BuildRequires:	tk-devel}
 %{?with_tk:BuildRequires:	python-tkinter}
 BuildRequires:	zlib-devel
-%pyrequires_eq	python
+%pyrequires_eq	python-libs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,7 +44,7 @@ Summary:	Python's own image processing library header files
 Summary(pl):	Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie
 Group:		Development/Languages/Python
 %pyrequires_eq	python
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Python's own image processing library header files.
