@@ -1,6 +1,6 @@
 %include	/usr/lib/rpm/macros.python
 
-%define module Imaging
+%define		module Imaging
 
 Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
@@ -13,7 +13,7 @@ Source0:	http://www.pythonware.com/downloads/%{module}-%{version}.tar.gz
 Patch0:		Imaging-libver.patch
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng >= 1.0.8
-BuildRequires:	python-devel >= 2.2
+BuildRequires:	python-devel >= 2.2.1
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed
 BuildRequires:	tk-devel
