@@ -5,12 +5,12 @@
 Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
-Version:	1.1.5a2
+Version:	1.1.5a3
 Release:	1
 License:	distributable
 Group:		Libraries/Python
 Source0:	http://effbot.org/downloads/%{module}-%{version}.tar.gz
-# Source0-md5:	41a17f1f92a81915ac03a90926f348d1
+# Source0-md5:	6c004e0232e5a2ac2468467793dcadbb
 Patch0:		Imaging-libver.patch
 Patch1:		%{name}-EXTRA_ARGS.patch
 Patch2:		%{name}-freetype.patch
