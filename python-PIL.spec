@@ -1,6 +1,6 @@
 %include	/usr/lib/rpm/macros.python
 
-%define		module Imaging
+%define		module	Imaging
 
 Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
