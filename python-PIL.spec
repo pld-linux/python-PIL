@@ -6,9 +6,9 @@ Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.2
-Release:	4
+Release:	5
 License:	distributable
-Group:		Development/Languages/Python
+Group:		Libraries/Python
 Source0:	http://www.pythonware.com/downloads/%{module}-%{version}.tar.gz
 Patch0:		Imaging-libver.patch
 BuildRequires:	libjpeg-devel >= 6a
