@@ -61,8 +61,7 @@ cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{py_sitedir}/%{module} \
-	$RPM_BUILD_ROOT%{py_incdir}
+install -d $RPM_BUILD_ROOT{%{py_sitedir}/%{module},%{py_incdir}}
 
 echo %{module} > $RPM_BUILD_ROOT%{py_sitedir}/%{module}.pth
 install *.so $RPM_BUILD_ROOT%{py_sitedir}/%{module}
