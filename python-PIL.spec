@@ -1,9 +1,5 @@
 
 %define module Imaging
-%define python_sitepkgsdir %(echo `python -c "import sys; print (sys.prefix + '/lib/python' + sys.version[:3] + '/site-packages/')"`)
-%define python_dir %(echo `python -c "import sys; print ('python' + sys.version[:3])"`)
-%define python_compile_opt python -O -c "import compileall; compileall.compile_dir('.')"
-%define python_compile python -c "import compileall; compileall.compile_dir('.')"
 
 Summary:	Python's own image processing library 
 Name:		python-%{module}
@@ -20,8 +16,11 @@ BuildRequires:	libpng >= 1.0.8
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	sed
 BuildRequires:	tk-devel
-Requires:	python >= 2.1
+BuildRequires:	zlib-devel
+%requires_eq	python
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%include /usr/lib/rpm/macros.python
 
 %description
 The Python Imaging Library (PIL) adds image processing capabilities to
@@ -34,6 +33,7 @@ Summary:	Python's own image processing library header files
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
+%requires_eq	python
 Requires:	%{name} = %{version}
 
 %description devel
@@ -51,25 +51,19 @@ cd ..
 %{__make} -f Makefile.pre.in boot
 %{__make}
 
-( cd PIL
-  %python_compile_opt python
-  %python_compile
-)
-
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module} \
-	$RPM_BUILD_ROOT/%{_includedir}/%{python_dir}
+install -d $RPM_BUILD_ROOT%{py_sitedir}/%{module} \
+	$RPM_BUILD_ROOT/%{_includedir}/python%{py_ver}
 
-echo %{module} > $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}.pth
-install *.so $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}
-install PIL/* $RPM_BUILD_ROOT%{python_sitepkgsdir}/%{module}
-install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/%{python_dir}
+echo %{module} > $RPM_BUILD_ROOT%{py_sitedir}/%{module}.pth
+install *.so $RPM_BUILD_ROOT%{py_sitedir}/%{module}
+install PIL/* $RPM_BUILD_ROOT%{py_sitedir}/%{module}
+install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{_includedir}/python%{py_ver}
 
-(
-  cd $RPM_BUILD_ROOT%{python_sitepkgsdir}/
-  ln -sf %{module} PIL
-)
+ln -sf %{module} $RPM_BUILD_ROOT%{py_sitedir}/PIL
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 
 gzip -9nf  README FORMATS CHANGES 
 
@@ -79,13 +73,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc *.gz
-%dir %{python_sitepkgsdir}/%{module}
-%{python_sitepkgsdir}/PIL
-%{python_sitepkgsdir}/%{module}.pth
+%dir %{py_sitedir}/%{module}
+%{py_sitedir}/PIL
+%{py_sitedir}/%{module}.pth
 
-%attr(755,root,root) %{python_sitepkgsdir}/%{module}/*.so
-%{python_sitepkgsdir}/%{module}/*.py?
+%attr(755,root,root) %{py_sitedir}/%{module}/*.so
+%{py_sitedir}/%{module}/*.py?
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/%{python_dir}/*.h
+%{_includedir}/python%{py_ver}/*.h
