@@ -33,7 +33,7 @@ cd libImaging
 %{__make} "OPT=$RPM_OPT_FLAGS"
 cd ..
 %{__make} -f Makefile.pre.in boot
-make
+%{__make}
 
 cd PIL
 
