@@ -10,6 +10,7 @@ Release:	2
 License:	distributable
 Group:		Libraries/Python
 Source0:	http://www.pythonware.com/downloads/%{module}-%{version}.tar.gz
+# Source0-md5:	563471981376e06b3278ad713a07e2a8
 Patch0:		Imaging-libver.patch
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng >= 1.0.8
