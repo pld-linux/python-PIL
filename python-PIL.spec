@@ -2,10 +2,12 @@
 %define module Imaging
 %define python_sitepkgsdir %(echo `python -c "import sys; print (sys.prefix + '/lib/python' + sys.version[:3] + '/site-packages/')"`)
 %define python_dir %(echo `python -c "import sys; print ('python' + sys.version[:3])"`)
+%define python_compile_opt python -O -c "import compileall; compileall.compile_dir('.')"
+%define python_compile python -c "import compileall; compileall.compile_dir('.')"
 
 Summary:	Python's own image processing library 
 Name:		python-%{module}
-Version:	1.1.1
+Version:	1.1.2
 Release:	1
 Copyright:	distributable
 Group:		Development/Languages/Python
@@ -30,6 +32,19 @@ processing capabilities.
 
 %description -l pl
 
+%package devel
+Summary:	Python's own image processing library header files
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name} = %{version}
+
+%description devel
+N/A
+
+%description devel -l pl
+N/A
+
 %prep
 %setup -q -n %{module}-%{version}
 %patch0 -p1
@@ -42,18 +57,10 @@ cd ..
 %{__make} -f Makefile.pre.in boot
 %{__make}
 
-cd PIL
-
-python -O *.py
-
-python - <<END
-import py_compile, os, fnmatch
-
-for f in os.listdir("."):
-	if fnmatch.fnmatch(f, "*.py"):
-		print "Byte compiling "+f+"..."
-		py_compile.compile(f)
-END
+( cd PIL
+  %python_compile_opt python
+  %python_compile
+)
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -77,7 +84,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {README,FORMATS,CHANGES}.gz
-%attr(644,root,root) %{python_sitepkgsdir}/%{module}/*
+%dir %{python_sitepkgsdir}/%{module}
 %{python_sitepkgsdir}/PIL
-%attr(644,root,root) %{python_sitepkgsdir}/%{module}.pth
-%attr(644,root,root) %{_includedir}/%{python_dir}/*.h
+%{python_sitepkgsdir}/%{module}.pth
+
+%attr(755,root,root) %{python_sitepkgsdir}/%{module}/*.so
+%{python_sitepkgsdir}/%{module}/*.py?
+
+%files devel
+%defattr(644,root,root,755)
+%{_includedir}/%{python_dir}/*.h
