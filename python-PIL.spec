@@ -30,9 +30,9 @@ internal representation, and powerful image processing capabilities.
 %build
 cd libImaging
 ./configure
-make "OPT=$RPM_OPT_FLAGS"
+%{__make} "OPT=$RPM_OPT_FLAGS"
 cd ..
-make -f Makefile.pre.in boot
+%{__make} -f Makefile.pre.in boot
 make
 
 cd PIL
