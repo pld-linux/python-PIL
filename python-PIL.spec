@@ -17,7 +17,6 @@ BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng >= 1.0.8
 BuildRequires:	python-devel >= 2.2.1
 BuildRequires:	rpm-pythonprov
-BuildRequires:	sed
 BuildRequires:	tk-devel
 BuildRequires:	zlib-devel
 %pyrequires_eq	python
@@ -54,7 +53,8 @@ Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie.
 %build
 cd libImaging
 %configure2_13
-%{__make} "OPT=%{rpmcflags}"
+%{__make} \
+	"OPT=%{rpmcflags}"
 cd ..
 %{__make} -f Makefile.pre.in boot
 %{__make}
@@ -62,17 +62,16 @@ cd ..
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{py_sitedir}/%{module} \
-	$RPM_BUILD_ROOT/%{py_incdir}
+	$RPM_BUILD_ROOT%{py_incdir}
 
 echo %{module} > $RPM_BUILD_ROOT%{py_sitedir}/%{module}.pth
 install *.so $RPM_BUILD_ROOT%{py_sitedir}/%{module}
 install PIL/* $RPM_BUILD_ROOT%{py_sitedir}/%{module}
-install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT/%{py_incdir}
+install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT%{py_incdir}
 
 ln -sf %{module} $RPM_BUILD_ROOT%{py_sitedir}/PIL
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
