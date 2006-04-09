@@ -2,21 +2,20 @@
 # Conditional build:
 %bcond_without	tk	# build without tkinter support
 #
-%define		module	Imaging
+%define		module	PIL
 
 Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
-Version:	1.1.5a3
-Release:	3
+Version:	1.1.5
+Release:	1
+Epoch:		1
 License:	distributable
 Group:		Libraries/Python
-Source0:	http://effbot.org/downloads/%{module}-%{version}.tar.gz
-# Source0-md5:	6c004e0232e5a2ac2468467793dcadbb
-Patch0:		Imaging-libver.patch
-Patch1:		%{name}-EXTRA_ARGS.patch
-Patch2:		%{name}-freetype.patch
+Source0:	http://effbot.org/downloads/Imaging-%{version}.tar.gz
+# Source0-md5:	a64512e39469213ced0d091b9eba76c0
 URL:		http://www.pythonware.com/products/pil/index.htm
+Patch0:		%{name}-lib64.patch
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	python
@@ -25,6 +24,7 @@ BuildRequires:	python-devel >= 2.2.1
 %{?with_tk:BuildRequires:	python-tkinter}
 BuildRequires:	zlib-devel
 %pyrequires_eq	python-libs
+Obsoletes:	python-Imaging
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,6 +43,7 @@ Summary:	Python's own image processing library header files
 Summary(pl):	Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie
 Group:		Development/Languages/Python
 %pyrequires_eq	python
+Obsoletes:	python-Imaging-devel
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
@@ -52,33 +53,27 @@ Python's own image processing library header files.
 Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie.
 
 %prep
-%setup -q -n %{module}-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%setup -q -n Imaging-%{version}
+
+%if %{_lib} == "lib64"
+%patch0 -p1 
+%endif
 
 %build
-cd libImaging
-%configure2_13
-%{__make} \
-	OPT="%{rpmcflags} -fPIC"
-cd ..
-#%%{__make} -f Makefile.pre.in boot
-#%%{__make}
 python setup.py build_ext -i
+python selftest.py
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{py_sitedir}/%{module},%{py_incdir}}
 
-echo %{module} > $RPM_BUILD_ROOT%{py_sitedir}/%{module}.pth
-# install *.so $RPM_BUILD_ROOT%{py_sitedir}/%{module}
-install PIL/* $RPM_BUILD_ROOT%{py_sitedir}/%{module}
-install libImaging/Im{Config,Platform,aging}.h $RPM_BUILD_ROOT%{py_incdir}
+python setup.py install --root=$RPM_BUILD_ROOT
 
-ln -sf %{module} $RPM_BUILD_ROOT%{py_sitedir}/PIL
-%py_comp $RPM_BUILD_ROOT%{py_sitedir}
-%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+install -d $RPM_BUILD_ROOT%{py_incdir}
+install libImaging/Im{Platform,aging}.h $RPM_BUILD_ROOT%{py_incdir}
+
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}/%{module}
+
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/%{module}/*.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -86,13 +81,10 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README CHANGES*
+%attr(755,root,root) %{_bindir}/*
+%{py_sitedir}/PIL.pth
 %dir %{py_sitedir}/%{module}
-%{py_sitedir}/PIL
-%{py_sitedir}/%{module}.pth
-
-%attr(755,root,root) %{py_sitedir}/%{module}/_imaging.so
-%attr(755,root,root) %{py_sitedir}/%{module}/_imagingft.so
-%{?with_tk:%attr(755,root,root) %{py_sitedir}/%{module}/_imagingtk.so}
+%attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/*.py?
 
 %files devel
