@@ -1,0 +1,19 @@
+diff -urN Imaging-1.1.5.org/PIL/Image.py Imaging-1.1.5/PIL/Image.py
+--- Imaging-1.1.5.org/PIL/Image.py	2005-03-25 08:50:52.000000000 +0100
++++ Imaging-1.1.5/PIL/Image.py	2006-11-20 17:50:14.000000000 +0100
+@@ -1896,9 +1896,12 @@
+     else:
+         format = None
+         if not command:
+-            command = "xv"
+-            if title:
+-                command = command + " -name \"%s\"" % title
++            if os.path.exists("/usr/bin/kfmclient"):
++                command = "/usr/bin/kfmclient exec";
++            else:
++                command = "xv"
++                if title:
++                    command = command + " -name \"%s\"" % title
+ 
+     if image.mode == "I;16":
+         # @PIL88 @PIL101
