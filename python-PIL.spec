@@ -8,13 +8,14 @@ Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.5
-Release:	3
+Release:	4
 Epoch:		1
 License:	distributable
 Group:		Libraries/Python
 Source0:	http://effbot.org/downloads/Imaging-%{version}.tar.gz
 # Source0-md5:	a64512e39469213ced0d091b9eba76c0
 Patch0:		%{name}-lib64.patch
+Patch1:		%{name}-viewer.patch
 URL:		http://www.pythonware.com/products/pil/index.htm
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng-devel >= 1.0.8
@@ -54,10 +55,10 @@ Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie.
 
 %prep
 %setup -q -n Imaging-%{version}
-
 %if %{_lib} == "lib64"
 %patch0 -p1 
 %endif
+%patch1 -p1
 
 %build
 python setup.py build_ext -i
