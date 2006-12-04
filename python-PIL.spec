@@ -20,7 +20,7 @@ URL:		http://www.pythonware.com/products/pil/index.htm
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	python
-BuildRequires:	python-devel >= 2.5
+BuildRequires:	python-devel >= 1:2.5
 %{?with_tk:BuildRequires:	tk-devel}
 %{?with_tk:BuildRequires:	python-tkinter}
 BuildRequires:	zlib-devel
