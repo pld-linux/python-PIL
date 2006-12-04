@@ -7,20 +7,20 @@
 Summary:	Python's own image processing library
 Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
-Version:	1.1.5
-Release:	4
+Version:	1.1.6
+Release:	1
 Epoch:		1
 License:	distributable
 Group:		Libraries/Python
 Source0:	http://effbot.org/downloads/Imaging-%{version}.tar.gz
-# Source0-md5:	a64512e39469213ced0d091b9eba76c0
+# Source0-md5:	3a9b5c20ca52f0a9900512d2c7347622
 Patch0:		%{name}-lib64.patch
 Patch1:		%{name}-viewer.patch
 URL:		http://www.pythonware.com/products/pil/index.htm
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	python
-BuildRequires:	python-devel >= 2.2.1
+BuildRequires:	python-devel >= 2.5
 %{?with_tk:BuildRequires:	tk-devel}
 %{?with_tk:BuildRequires:	python-tkinter}
 BuildRequires:	zlib-devel
@@ -87,6 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{module}
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/*.py?
+%{py_sitedir}/%{module}/*.egg-info
 
 %files devel
 %defattr(644,root,root,755)
