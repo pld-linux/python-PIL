@@ -5,7 +5,7 @@
 %define		module	PIL
 
 Summary:	Python's own image processing library
-Summary(pl):	Biblioteka do przetwarzania obrazu w Pythonie
+Summary(pl.UTF-8):   Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.6
 Release:	1
@@ -34,14 +34,14 @@ your Python interpreter. This library provides extensive file format
 support, an efficient internal representation, and powerful image
 processing capabilities.
 
-%description -l pl
-Python Imaging Library (PIL) dodaje mo¿liwo¶æ przetwarzania obrazu do
-interpretera Pythona. Biblioteka daje wsparcie dla wielu formatów
-plików, wydajn± reprezentacjê wewnêtrzn± i du¿e mo¿liwo¶ci obróbki
+%description -l pl.UTF-8
+Python Imaging Library (PIL) dodaje moÅ¼liwoÅ›Ä‡ przetwarzania obrazu do
+interpretera Pythona. Biblioteka daje wsparcie dla wielu formatÃ³w
+plikÃ³w, wydajnÄ… reprezentacjÄ™ wewnÄ™trznÄ… i duÅ¼e moÅ¼liwoÅ›ci obrÃ³bki
 
 %package devel
 Summary:	Python's own image processing library header files
-Summary(pl):	Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe do biblioteki obrÃ³bki obrazu w Pythonie
 Group:		Development/Languages/Python
 %pyrequires_eq	python
 Requires:	%{name} = %{epoch}:%{version}-%{release}
@@ -50,8 +50,8 @@ Obsoletes:	python-Imaging-devel
 %description devel
 Python's own image processing library header files.
 
-%description devel -l pl
-Pliki nag³ówkowe do biblioteki obróbki obrazu w Pythonie.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe do biblioteki obrÃ³bki obrazu w Pythonie.
 
 %prep
 %setup -q -n Imaging-%{version}
