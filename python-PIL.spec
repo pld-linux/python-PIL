@@ -5,7 +5,7 @@
 %define		module	PIL
 
 Summary:	Python's own image processing library
-Summary(pl.UTF-8):   Biblioteka do przetwarzania obrazu w Pythonie
+Summary(pl.UTF-8):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.6
 Release:	1
@@ -41,7 +41,7 @@ plików, wydajną reprezentację wewnętrzną i duże możliwości obróbki
 
 %package devel
 Summary:	Python's own image processing library header files
-Summary(pl.UTF-8):   Pliki nagłówkowe do biblioteki obróbki obrazu w Pythonie
+Summary(pl.UTF-8):	Pliki nagłówkowe do biblioteki obróbki obrazu w Pythonie
 Group:		Development/Languages/Python
 %pyrequires_eq	python
 Requires:	%{name} = %{epoch}:%{version}-%{release}
