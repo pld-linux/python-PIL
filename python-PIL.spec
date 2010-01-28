@@ -21,8 +21,9 @@ BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	python
 BuildRequires:	python-devel >= 1:2.5
-%{?with_tk:BuildRequires:	tk-devel}
 %{?with_tk:BuildRequires:	python-tkinter}
+BuildRequires:	rpm-pythonprov
+%{?with_tk:BuildRequires:	tk-devel}
 BuildRequires:	zlib-devel
 %pyrequires_eq	python-libs
 Obsoletes:	python-Imaging
@@ -56,7 +57,7 @@ Pliki nagłówkowe do biblioteki obróbki obrazu w Pythonie.
 %prep
 %setup -q -n Imaging-%{version}
 %if %{_lib} == "lib64"
-%patch0 -p1 
+%patch0 -p1
 %endif
 %patch1 -p1
 
