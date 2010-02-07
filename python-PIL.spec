@@ -8,7 +8,7 @@ Summary:	Python's own image processing library
 Summary(pl.UTF-8):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.6
-Release:	5
+Release:	6
 Epoch:		1
 License:	distributable
 Group:		Libraries/Python
@@ -16,13 +16,14 @@ Source0:	http://effbot.org/downloads/Imaging-%{version}.tar.gz
 # Source0-md5:	3a9b5c20ca52f0a9900512d2c7347622
 Patch0:		%{name}-lib64.patch
 Patch1:		%{name}-viewer.patch
-URL:		http://www.pythonware.com/products/pil/index.htm
+URL:		http://www.pythonware.com/products/pil/
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	python
 BuildRequires:	python-devel >= 1:2.5
 %{?with_tk:BuildRequires:	python-tkinter}
 BuildRequires:	rpm-pythonprov
+BuildRequires:	sane-backends-devel
 %{?with_tk:BuildRequires:	tk-devel}
 BuildRequires:	zlib-devel
 %pyrequires_eq	python-libs
@@ -40,12 +41,34 @@ Python Imaging Library (PIL) dodaje możliwość przetwarzania obrazu do
 interpretera Pythona. Biblioteka daje wsparcie dla wielu formatów
 plików, wydajną reprezentację wewnętrzną i duże możliwości obróbki
 
+%package sane
+Summary:	Python Module for using scanners
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description sane
+This package contains the sane module for Python which provides access
+to various raster scanning devices such as flatbed scanners and
+digital cameras.
+
+%package tk
+Summary:	Tk interface for python-imaging
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	python-tkinter
+Conflicts:	%{name} < 1:1.1.6-6
+
+%description tk
+This package contains a Tk interface for python-imaging.
+
 %package devel
 Summary:	Python's own image processing library header files
 Summary(pl.UTF-8):	Pliki nagłówkowe do biblioteki obróbki obrazu w Pythonie
 Group:		Development/Languages/Python
-%pyrequires_eq	python
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libjpeg-devel
+Requires:	python-devel
+Requires:	zlib-devel
 Obsoletes:	python-Imaging-devel
 
 %description devel
@@ -61,21 +84,38 @@ Pliki nagłówkowe do biblioteki obróbki obrazu w Pythonie.
 %endif
 %patch1 -p1
 
+# fix the interpreter path for Scripts/*.py
+sed -i -e "s|/usr/local/bin/python|%{_bindir}/python|" Scripts/*.py
+
 %build
-python setup.py build_ext -i
-python selftest.py
+export CFLAGS="%{rpmcflags}"
+%{__python} setup.py build_ext -i
+%{__python} selftest.py
+
+cd Sane
+%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%{__python} setup.py install \
+	--optimize=2 \
+	--root=$RPM_BUILD_ROOT
 
-python setup.py install --root=$RPM_BUILD_ROOT
+cd Sane
+%{__python} setup.py install \
+	--optimize=2 \
+	--root=$RPM_BUILD_ROOT
+cd ..
 
 install -d $RPM_BUILD_ROOT%{py_incdir}
-install libImaging/Im{Platform,aging}.h $RPM_BUILD_ROOT%{py_incdir}
+cp -a libImaging/Im{Platform,aging}.h $RPM_BUILD_ROOT%{py_incdir}
+
+install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+mv $RPM_BUILD_ROOT{%{_bindir}/pil*.py,%{_examplesdir}/%{name}-%{version}}
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}/%{module}
 
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/%{module}/*.py
+%py_postclean
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -83,12 +123,35 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README CHANGES*
-%attr(755,root,root) %{_bindir}/*
-%{py_sitedir}/PIL.pth
+%{py_sitedir}/%{module}.pth
 %dir %{py_sitedir}/%{module}
+%{py_sitedir}/%{module}/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
-%{py_sitedir}/%{module}/*.py?
-%{py_sitedir}/%{module}/*.egg-info
+%if "%{py_ver}" > "2.4"
+%{py_sitedir}/%{module}/%{module}-*.egg-info
+%endif
+
+%{_examplesdir}/%{name}-%{version}
+
+# -tk
+%exclude %{py_sitedir}/%{module}/ImageTk.py[co]
+%exclude %{py_sitedir}/%{module}/SpiderImagePlugin.py[co]
+%exclude %{py_sitedir}/%{module}/_imagingtk.so
+
+%files sane
+%defattr(644,root,root,755)
+%doc Sane/CHANGES Sane/demo*.py Sane/sanedoc.txt
+%{py_sitedir}/sane.py[co]
+%attr(755,root,root) %{py_sitedir}/_sane.so
+%if "%{py_ver}" > "2.4"
+%{py_sitedir}/pysane-*.egg-info
+%endif
+
+%files tk
+%defattr(644,root,root,755)
+%{py_sitedir}/%{module}/ImageTk.py[co]
+%{py_sitedir}/%{module}/SpiderImagePlugin.py[co]
+%attr(755,root,root) %{py_sitedir}/%{module}/_imagingtk.so
 
 %files devel
 %defattr(644,root,root,755)
