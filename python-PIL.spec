@@ -16,6 +16,8 @@ Source0:	http://effbot.org/downloads/Imaging-%{version}.tar.gz
 # Source0-md5:	3a9b5c20ca52f0a9900512d2c7347622
 Patch0:		%{name}-lib64.patch
 Patch1:		%{name}-viewer.patch
+Patch2:		python-imaging-1.1.6-sane-types.patch
+Patch3:		python-imaging-giftrans.patch
 URL:		http://www.pythonware.com/products/pil/
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	libpng-devel >= 1.0.8
@@ -83,6 +85,8 @@ Pliki nagłówkowe do biblioteki obróbki obrazu w Pythonie.
 %patch0 -p1
 %endif
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 # fix the interpreter path for Scripts/*.py
 sed -i -e "s|/usr/local/bin/python|%{_bindir}/python|" Scripts/*.py
@@ -133,10 +137,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_examplesdir}/%{name}-%{version}
 
-# -tk
+%if %{with tk}
 %exclude %{py_sitedir}/%{module}/ImageTk.py[co]
 %exclude %{py_sitedir}/%{module}/SpiderImagePlugin.py[co]
 %exclude %{py_sitedir}/%{module}/_imagingtk.so
+%endif
 
 %files sane
 %defattr(644,root,root,755)
@@ -147,11 +152,13 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/pysane-*.egg-info
 %endif
 
+%if %{with tk}
 %files tk
 %defattr(644,root,root,755)
 %{py_sitedir}/%{module}/ImageTk.py[co]
 %{py_sitedir}/%{module}/SpiderImagePlugin.py[co]
 %attr(755,root,root) %{py_sitedir}/%{module}/_imagingtk.so
+%endif
 
 %files devel
 %defattr(644,root,root,755)
