@@ -20,7 +20,6 @@ Patch2:		python-imaging-1.1.6-sane-types.patch
 Patch3:		python-imaging-giftrans.patch
 URL:		http://www.pythonware.com/products/pil/
 BuildRequires:	libjpeg-devel >= 6a
-BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	python
 BuildRequires:	python-devel >= 1:2.5
 %{?with_tk:BuildRequires:	python-tkinter}
