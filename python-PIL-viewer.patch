@@ -16,3 +16,14 @@
      class XVViewer(UnixViewer):
          def get_command_ex(self, file, title=None, **options):
              # note: xv is pretty outdated.  most modern systems have
+--- Imaging-1.1.7/PIL/ImageShow.py~	2010-02-16 00:01:02.588251213 +0100
++++ Imaging-1.1.7/PIL/ImageShow.py	2010-02-16 00:09:28.693824791 +0100
+@@ -63,7 +63,7 @@
+         if base != image.mode and image.mode != "1":
+             image = image.convert(base)
+ 
+-        self.show_image(image, **options)
++        return self.show_image(image, **options)
+ 
+     # hook methods
+ 
