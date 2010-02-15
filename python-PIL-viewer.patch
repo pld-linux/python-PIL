@@ -1,19 +1,29 @@
-diff -urN Imaging-1.1.5.org/PIL/Image.py Imaging-1.1.5/PIL/Image.py
---- Imaging-1.1.5.org/PIL/Image.py	2005-03-25 08:50:52.000000000 +0100
-+++ Imaging-1.1.5/PIL/Image.py	2006-11-20 17:50:14.000000000 +0100
-@@ -1896,9 +1896,12 @@
-     else:
-         format = None
-         if not command:
--            command = "xv"
--            if title:
--                command = command + " -name \"%s\"" % title
-+            if os.path.exists("/usr/bin/kfmclient"):
-+                command = "/usr/bin/kfmclient exec";
-+            else:
-+                command = "xv"
-+                if title:
-+                    command = command + " -name \"%s\"" % title
+--- Imaging-1.1.7/PIL/ImageShow.py~	2009-11-01 01:44:12.000000000 +0100
++++ Imaging-1.1.7/PIL/ImageShow.py	2010-02-15 23:53:08.350589358 +0100
+@@ -147,12 +147,20 @@
  
-     if image.mode == "I;16":
-         # @PIL88 @PIL101
+     class XVViewer(UnixViewer):
+         def get_command_ex(self, file, title=None, **options):
+-            # note: xv is pretty outdated.  most modern systems have
+-            # imagemagick's display command instead.
+-            command = executable = "xv"
+-            if title:
+-                # FIXME: do full escaping
+-                command = command + " -name \"%s\"" % title
++            if os.path.exists("/usr/bin/display"):
++                command = executable = "/usr/bin/display"
++                if title:
++                    command = command + " -title \"%s\"" % title
++            elif os.path.exists("/usr/bin/kfmclient"):
++                command = "/usr/bin/kfmclient exec"
++                executable = "/usr/bin/kfmclient"
++            else:
++                # note: xv is pretty outdated.  most modern systems have
++                # imagemagick's display command instead.
++                command = executable = "xv"
++                if title:
++                    # FIXME: do full escaping
++                    command = command + " -name \"%s\"" % title
+             return command, executable
+ 
+     if which("xv"):
