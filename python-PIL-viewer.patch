@@ -1,29 +1,18 @@
 --- Imaging-1.1.7/PIL/ImageShow.py~	2009-11-01 01:44:12.000000000 +0100
-+++ Imaging-1.1.7/PIL/ImageShow.py	2010-02-15 23:53:08.350589358 +0100
-@@ -147,12 +147,20 @@
++++ Imaging-1.1.7/PIL/ImageShow.py	2010-02-16 00:00:20.623473929 +0100
+@@ -145,6 +145,15 @@
+     if which("display"):
+         register(DisplayViewer)
  
++    class KFMClientViewer(UnixViewer):
++        def get_command_ex(self, file, **options):
++            executable = "kfmclient"
++            command = executable + " exec"
++            return command, executable
++
++    if which("kfmclient"):
++        register(KFMClientViewer)
++
      class XVViewer(UnixViewer):
          def get_command_ex(self, file, title=None, **options):
--            # note: xv is pretty outdated.  most modern systems have
--            # imagemagick's display command instead.
--            command = executable = "xv"
--            if title:
--                # FIXME: do full escaping
--                command = command + " -name \"%s\"" % title
-+            if os.path.exists("/usr/bin/display"):
-+                command = executable = "/usr/bin/display"
-+                if title:
-+                    command = command + " -title \"%s\"" % title
-+            elif os.path.exists("/usr/bin/kfmclient"):
-+                command = "/usr/bin/kfmclient exec"
-+                executable = "/usr/bin/kfmclient"
-+            else:
-+                # note: xv is pretty outdated.  most modern systems have
-+                # imagemagick's display command instead.
-+                command = executable = "xv"
-+                if title:
-+                    # FIXME: do full escaping
-+                    command = command + " -name \"%s\"" % title
-             return command, executable
- 
-     if which("xv"):
+             # note: xv is pretty outdated.  most modern systems have
