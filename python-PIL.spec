@@ -8,7 +8,7 @@ Summary:	Python's own image processing library
 Summary(pl.UTF-8):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.7
-Release:	1
+Release:	2
 Epoch:		1
 License:	distributable
 Group:		Libraries/Python
