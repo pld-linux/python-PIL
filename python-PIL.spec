@@ -26,6 +26,7 @@ BuildRequires:	python >= 1:2.5
 BuildRequires:	python-devel >= 1:2.5
 %{?with_tk:BuildRequires:	python-tkinter}
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	sane-backends-devel
 %{?with_tk:BuildRequires:	tk-devel}
 BuildRequires:	zlib-devel >= 1.2.3
