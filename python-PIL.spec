@@ -1,14 +1,13 @@
 #
 # Conditional build:
 %bcond_without	tk	# build without tkinter support
-#
-%define		module	PIL
 
+%define		module	PIL
 Summary:	Python's own image processing library
 Summary(pl.UTF-8):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.7
-Release:	4
+Release:	5
 Epoch:		1
 License:	BSD-like
 Group:		Libraries/Python
