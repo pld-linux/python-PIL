@@ -18,7 +18,7 @@ Patch1:		%{name}-viewer.patch
 Patch2:		python-imaging-1.1.6-sane-types.patch
 Patch3:		python-imaging-giftrans.patch
 URL:		http://www.pythonware.com/products/pil/
-BuildRequires:	freetype-devel >= 2.3.9
+BuildRequires:	freetype-devel >= 1:2.3.9
 BuildRequires:	lcms-devel >= 1.1.5
 BuildRequires:	libjpeg-devel >= 6a
 BuildRequires:	python >= 1:2.5
@@ -30,7 +30,7 @@ BuildRequires:	sane-backends-devel
 %{?with_tk:BuildRequires:	tk-devel}
 BuildRequires:	zlib-devel >= 1.2.3
 %pyrequires_eq	python-libs
-Requires:	freetype >= 2.3.9
+Requires:	freetype >= 1:2.3.9
 Requires:	lcms >= 1.1.5
 Requires:	zlib >= 1.2.3
 Obsoletes:	python-Imaging
