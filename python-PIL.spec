@@ -111,18 +111,14 @@ export CFLAGS="%{rpmcflags}"
 %{__python} selftest.py
 
 cd Sane
-%{__python} setup.py build
+%py_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__python} setup.py install \
-	--optimize=2 \
-	--root=$RPM_BUILD_ROOT
+%py_install
 
 cd Sane
-%{__python} setup.py install \
-	--optimize=2 \
-	--root=$RPM_BUILD_ROOT
+%py_install
 cd ..
 
 install -d $RPM_BUILD_ROOT%{py_incdir}
