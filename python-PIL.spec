@@ -1,3 +1,4 @@
+# NOTE: for python3 compatible continuation see python-pillow.spec + python-sane.spec
 #
 # Conditional build:
 %bcond_without	tk	# build without tkinter support
@@ -7,7 +8,7 @@ Summary:	Python's own image processing library
 Summary(pl.UTF-8):	Biblioteka do przetwarzania obrazu w Pythonie
 Name:		python-%{module}
 Version:	1.1.7
-Release:	9
+Release:	9.1
 Epoch:		1
 License:	BSD-like
 Group:		Libraries/Python
